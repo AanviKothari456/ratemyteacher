@@ -13,9 +13,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS teachers (id INTEGER PRIMARY KEY AUTOINC
 c.execute('''CREATE TABLE IF NOT EXISTS ratings (id INTEGER PRIMARY KEY AUTOINCREMENT, teacher_id INTEGER, score INTEGER, comment TEXT)''')
 conn.commit()
 
-@app.route('/')
-def home():
-    return '<h2>Welcome to the Teacher Rating API</h2>', 200
+
 
 @app.route('/add_teacher', methods=['POST'])
 def add_teacher():
