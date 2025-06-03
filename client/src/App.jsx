@@ -18,7 +18,7 @@ export default function App() {
   const [searchTeacher, setSearchTeacher] = useState(null);
   const searchComments = async () => {
   if (!searchQuery.trim()) return;
-  const res = await axios.get(`http://localhost:5050/teacher_comments?q=${searchQuery}`);
+  const res = await axios.get(`/teacher_comments?q=${searchQuery}`);
   setSearchTeacher(res.data.teacher);
   setSearchResults(res.data.comments);
 };
