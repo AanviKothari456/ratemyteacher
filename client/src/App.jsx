@@ -50,14 +50,15 @@ export default function App() {
   };
 
   const filterTeachers = () => {
-    setFiltered(
-      teachers.filter(
-        t =>
-          (!filterGrade || t.grade == filterGrade) &&
-          (!filterSubject || t.subject.toLowerCase().includes(filterSubject.toLowerCase()))
-      )
-    );
-  };
+  setFiltered(
+    teachers.filter(
+      t =>
+        (!filterGrade || t.grade === parseInt(filterGrade)) &&
+        (!filterSubject || t.subject.toLowerCase().includes(filterSubject.toLowerCase()))
+    )
+  );
+};
+
 
   return (
     <div className="container">
