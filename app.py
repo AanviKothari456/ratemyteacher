@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="client/build", static_url_path="")
+
 #CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 CORS(app)
 
@@ -58,8 +59,6 @@ def teacher_comments():
             })
 
     return jsonify({'teacher': None, 'comments': []})
-from flask import send_from_directory
-import os
 
 from flask import send_from_directory
 import os
@@ -67,11 +66,10 @@ import os
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    if path != "" and os.path.exists("client/build/" + path):
-        return send_from_directory('client/build', path)
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
     else:
-        return send_from_directory('client/build', 'index.html')
-
+        return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5050)
