@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+
 import axios from 'axios';
 import './index.css'; // make sure this is imported
-
+import React, { useState, useEffect, useCallback } from 'react';
 export default function App() {
   const [teachers, setTeachers] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -43,12 +43,14 @@ const rateTeacher = async () => {
   fetchTeachers();
 };
 
-const fetchTeachers = async () => {
-  const res = await axios.get(`/teacher_comments?q=${searchQuery}`);
 
+const fetchTeachers = useCallback(async () => {
+  const res = await axios.get('/teachers');
   setTeachers(res.data);
   setFiltered(res.data);
-};
+}, []);
+
+
 
 
   const filterTeachers = () => {
