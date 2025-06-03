@@ -27,27 +27,29 @@ export default function App() {
     fetchTeachers();
   }, []);
 
-  const fetchTeachers = async () => {
-    const res = await axios.get('http://localhost:5050/teachers');
-    setTeachers(res.data);
-    setFiltered(res.data);
-  };
-
   const addTeacher = async () => {
-    await axios.post('http://localhost:5050/add_teacher', { name, grade, subject });
-    setName('');
-    setGrade('');
-    setSubject('');
-    fetchTeachers();
-  };
+  await axios.post('/add_teacher', { name, grade, subject });
+  setName('');
+  setGrade('');
+  setSubject('');
+  fetchTeachers();
+};
 
-  const rateTeacher = async () => {
-    await axios.post('http://localhost:5050/rate_teacher', { teacher_id: teacherId, score, comment });
-    setTeacherId('');
-    setScore(1);
-    setComment('');
-    fetchTeachers();
-  };
+const rateTeacher = async () => {
+  await axios.post('/rate_teacher', { teacher_id: teacherId, score, comment });
+  setTeacherId('');
+  setScore(1);
+  setComment('');
+  fetchTeachers();
+};
+
+const fetchTeachers = async () => {
+  const res = await axios.get(`/teacher_comments?q=${searchQuery}`);
+
+  setTeachers(res.data);
+  setFiltered(res.data);
+};
+
 
   const filterTeachers = () => {
   setFiltered(
